@@ -3,6 +3,9 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+  end
+
   def create
     if User.find_by({ "email" => params["email"] }) == nil
       @user = User.new
