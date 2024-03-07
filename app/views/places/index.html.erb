@@ -1,11 +1,16 @@
-<h1>Places</h1>
+<%# Only display form when user is logged in. %>
+<% if @user != nil %>
+  <h1 class="mb-4">Places I've Been</h1>
 
-<ul>
-  <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
-  <% end %>
-</ul>
+  <p class="mb-3">
+    <a href="/places/new" class="btn btn-primary">New place</a>
+  </p>
 
-<p>
-  <a href="/places/new">New place</a>
-</p>
+  <ul class="list-unstyled">
+    <% for place in @places %>
+      <li class="mb-2"><a href="/places/<%= place["id"] %>" class="text-decoration-none"><%= place["name"] %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  You must first <a href="/login">login</a> to post.
+<% end %>

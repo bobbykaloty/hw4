@@ -1,1 +1,6 @@
 /* Application styles */
+.entry-image {
+  width: 100%; /* Make image responsive */
+  height: 200px; /* Example fixed height */
+  object-fit: cover; /* This will cover the area without distorting the aspect ratio */
+}

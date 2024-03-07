@@ -1,16 +1,36 @@
-<h1><%= @place["name"] %></h1>
+<%# Only display form when user is logged in. %>
+<% if @user != nil %>
+  <% if @place != nil %>
 
-<h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
+    <h1 class="mb-4"><%= @place["name"] %></h1>
+
+    <p class="mb-3">
+      <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Entry</a>
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <% @entries.each do |entry| %>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%= entry.title %></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><%= entry.occurred_on %></h6>
+              <% if entry.uploaded_image.attached? %>
+                <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
+              <% else %>
+                <img src="<%= entry["image"] %>" class="img-fluid">
+              <% end %>
+              <p class="card-text"><%= entry.description %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  <% else %>
+    You must first <a href="/places/new">add this place</a>.
+  <% end %>
+
+<% else %>
+  You must first <a href="/login">login</a> to post.
 <% end %>
-
-<p>
-  <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
-</p>
-
-<p>
-  <a href="/places">Back to All Places</a>
-</p>
