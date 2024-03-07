@@ -23,6 +23,10 @@ class PlacesController < ApplicationController
     end
   end
 
+  def new
+    @user = User.find_by({ "id" => session["user_id"] })
+  end
+
   def create
     @user = User.find_by({ "id" => session["user_id"] })
     if @user != nil
